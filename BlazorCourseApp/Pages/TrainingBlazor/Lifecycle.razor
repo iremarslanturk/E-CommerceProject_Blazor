@@ -1,0 +1,24 @@
+﻿@page "/lifecycle"
+
+<h1>OnInit & OnoInitAsync Demo</h1>
+
+@foreach (var item in EventType)
+  {
+    @item
+    <hr />
+}
+
+@code{
+    List<string> EventType = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("OnInitialized is called");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        EventType.Add("OnInitializedAsync is called");
+        await Task.Delay(1000); 
+    }
+
+}

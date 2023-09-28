@@ -1,0 +1,48 @@
+﻿@page "/success-payment"
+
+@inject ILocalStorageService _localStorageService
+@inject ICourseOrderInfoService _courseOrderInfoService
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="project-info-box mt-0">
+                <h3> Payment Successful</h3>
+                <br />
+               
+                <p class="mb-0">
+                  Course Price => @price
+                </p>
+            </div><!-- / project-info-box -->
+            <br />
+            <br />
+        </div>
+
+       
+    </div>
+</div>
+
+@code {
+
+    private bool IsPaymentComplete { get; set; } = false;
+    private int OrderId { get; set; }
+
+    private string title { get; set; }
+    private decimal price { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var orderDetail = await _localStorageService.GetItemAsync<CourseOrderInfoDto>(ResultConstant.CourseOrderInfo);
+        title = orderDetail.Title;
+        price = orderDetail.CoursePrice;
+        OrderId = orderDetail.Id;
+        var paymentSucc = await _courseOrderInfoService.PaymentSuccessful(orderDetail);
+
+        if (paymentSucc.IsSuccess)
+        {
+            await _localStorageService.RemoveItemAsync(ResultConstant.CourseOrderInfo);
+            IsPaymentComplete = true;
+        }
+    }
+}

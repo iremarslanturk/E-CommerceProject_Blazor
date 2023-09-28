@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazorCourse.DataAccess\BlazorCourse.DataAccess.csproj" />
+		<ProjectReference Include="..\BlazorCourse.Models\BlazorCourse.Models.csproj" />
+	</ItemGroup>
+
+</Project>
